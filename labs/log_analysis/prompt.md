@@ -1,0 +1,1 @@
+We have a file named sample_logs.log containing SSH authentication logs. I need a Python script that reads this file, counts the number of failed password attempts per IP address, identifies IPs with more than three failed attempts, and outputs the counts and suspicious IPs. Then plot the counts in a bar chart.
