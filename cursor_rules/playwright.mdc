@@ -1,0 +1,10 @@
+---
+description: Playwright enables reliable end-to-end testing for modern web apps.
+alwaysApply: false
+---
+# Playwright Rules (Agent Requested)
+
+- Playwright is operating within a docker container via the docker desktop MCP Toolkit. 
+- If you attempt to connect to an loopback address (e.g. 127.0.0.1), when using playwright, you will be inside the docker container.
+- This means if an API or Web Application is running on the Host OS (e.g. macOS) and you attempt to use playwright to connect to it on the loopback address (e.g. 127.0.0.1), it will fail, because it is running from inside the container. 
+- One solution is to use the DNS name of "host.docker.internal" from within the container. "host.docker.internal" should resolve to the host machine’s network address.
