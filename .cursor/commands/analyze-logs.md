@@ -7,3 +7,5 @@ Steps:
 3. Flag IPs with more than three failed attempts.
 4. Plot the results and display the chart.
 5. Return a summary table.
+
+NOTE: leverage the "visualize_failed_logins.py" script when needed
