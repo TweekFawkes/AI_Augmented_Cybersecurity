@@ -11,6 +11,10 @@ A comprehensive web-based training platform for learning secure AI and LLM usage
 - **Module 4: API Security & Access Control** - Secure API key management and authentication
 - **Module 5: Output Validation & Filtering** - Implementing robust validation mechanisms
 - **Module 6: Security Best Practices** - Comprehensive framework for secure AI workflows
+- **Module 7: AI-Generated Phishing & Social Engineering** - The #1 threat of 2025 and defense mechanisms
+- **Module 8: AI Supply Chain Security** - Model provenance, dependencies, and supply chain risks
+- **Module 9: Jailbreaking & Adversarial Prompts** - Bypass techniques and robust defenses
+- **Module 10: AI Red Teaming & Security Testing** - Proactive security assessment methodologies
 
 ### ✅ Interactive Features
 - Progress tracking with local storage persistence
@@ -152,6 +156,34 @@ new_webapp/
 - Security-by-design principles
 - Development lifecycle security
 - Training, monitoring, and compliance
+
+### 7. AI-Generated Phishing & Social Engineering
+- The #1 email threat of 2025
+- How AI enables hyper-personalized phishing attacks
+- Voice cloning and deepfake threats
+- Advanced detection and defense mechanisms
+- Verification protocols and organizational defenses
+
+### 8. AI Supply Chain Security
+- Understanding AI supply chain risks
+- Model provenance and integrity verification
+- Data poisoning and dependency vulnerabilities
+- Secure model distribution and deployment
+- SBOM for AI systems
+
+### 9. Jailbreaking & Adversarial Prompts
+- LLM jailbreaking techniques and methods
+- Roleplay, obfuscation, and multi-step attacks
+- Advanced defense mechanisms
+- Proactive disruption and LLM salting
+- Multi-layer security approaches
+
+### 10. AI Red Teaming & Security Testing
+- AI-specific penetration testing methodologies
+- Manual and automated testing techniques
+- Red teaming workflow and tools
+- Governance, ethics, and compliance
+- Continuous testing in MLOps pipelines
 
 ## Security Features
 
