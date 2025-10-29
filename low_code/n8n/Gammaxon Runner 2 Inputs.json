@@ -1,0 +1,400 @@
+{
+  "name": "Gammaxon Runner 2 Inputs",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://app.gammaxon.io/api/runners",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "2e393a47-d5b4-4903-b6cc-ea191e0ecb43",
+      "name": "List Runners (HTTP Request)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GaGG53OukWPdx2Cq",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "cddb9c14-0734-43d0-b090-69023b71a908",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fffff171-5919-42f7-a47a-56e7f6a14ff6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "={{ $('When Executed by Another Workflow').item.json.title }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "d6896230-5056-4e68-a111-1d9073215bb0",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "url": "=https://app.gammaxon.io/api/runners/{{ $json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1104,
+        0
+      ],
+      "id": "cf762c18-691b-4b59-9a73-f1f36055863c",
+      "name": "Get Runner Inputs (HTTP Request)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GaGG53OukWPdx2Cq",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://app.gammaxon.io/api/runners/{{ $json.id }}/run",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "={{ $json.fields[0].name }}",
+              "value": "={{ $('When Executed by Another Workflow').item.json.target_ip }}"
+            },
+            {
+              "name": "={{ $json.fields[1].name }}",
+              "value": "={{ $('When Executed by Another Workflow').item.json.tcp_port }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1328,
+        0
+      ],
+      "id": "33d29de3-0478-44a8-802d-4af4c237fc69",
+      "name": "Run The Runner (HTTP Request)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GaGG53OukWPdx2Cq",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://app.gammaxon.io/api/runs/{{ $json.run }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1552,
+        0
+      ],
+      "id": "c4bee5c8-86f3-4cb6-832b-88b5d2323a0e",
+      "name": "Get Runner Status (HTTP Request)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GaGG53OukWPdx2Cq",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "02635c44-5b11-425f-ba72-d81ab74f5291",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "COMPLETE",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1760,
+        0
+      ],
+      "id": "158790ea-42ad-4750-8ef2-df5ef31812bf",
+      "name": "Complete (If)"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "target_ip"
+            },
+            {
+              "name": "title"
+            },
+            {
+              "name": "tcp_port"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        0
+      ],
+      "id": "f0089a42-2cb6-4c3d-ba9e-dc21fa03a392",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2000,
+        128
+      ],
+      "id": "8afe91b6-b206-4f98-b770-24d22fe5d57d",
+      "name": "10 seconds (Wait)",
+      "webhookId": "42a8ab60-33d4-4952-a847-93fbcc5fc6eb"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3eb8b843-4535-469a-b19d-5ff829de5b41",
+              "name": "status",
+              "value": "={{ $json.status }}",
+              "type": "string"
+            },
+            {
+              "id": "169c57c8-cb6d-49e7-8fac-8c9a01c4b5a1",
+              "name": "stdout",
+              "value": "={{ $json.stdout }}",
+              "type": "string"
+            },
+            {
+              "id": "f0f56515-1990-4910-84cf-70b6afc46a37",
+              "name": "run_id",
+              "value": "={{ $json.run }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2048,
+        -96
+      ],
+      "id": "6f0f2888-2bed-43af-b743-6207b8ef87a6",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "target_ip": "209.38.116.233",
+          "title": "Top Open TCP Ports"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "List Runners (HTTP Request)": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Get Runner Inputs (HTTP Request)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Runner Inputs (HTTP Request)": {
+      "main": [
+        [
+          {
+            "node": "Run The Runner (HTTP Request)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run The Runner (HTTP Request)": {
+      "main": [
+        [
+          {
+            "node": "Get Runner Status (HTTP Request)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Runner Status (HTTP Request)": {
+      "main": [
+        [
+          {
+            "node": "Complete (If)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Complete (If)": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10 seconds (Wait)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "List Runners (HTTP Request)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10 seconds (Wait)": {
+      "main": [
+        [
+          {
+            "node": "Get Runner Status (HTTP Request)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "79679ebc-f6fb-48ef-bb47-7b2242161d73",
+  "meta": {
+    "instanceId": "ccdb90389a30f151fb2b7521a01acf6b40289211855822981eacc24ed27a8f35"
+  },
+  "id": "V60ofuaW34tTi3OM",
+  "tags": []
+}
