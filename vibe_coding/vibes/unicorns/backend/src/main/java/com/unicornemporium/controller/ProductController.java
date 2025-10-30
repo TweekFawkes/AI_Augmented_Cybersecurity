@@ -2,7 +2,6 @@ package com.unicornemporium.controller;
 
 import com.unicornemporium.model.Product;
 import com.unicornemporium.service.ProductService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +9,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-@RequiredArgsConstructor
 public class ProductController {
     
     private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
     
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
@@ -37,4 +39,3 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(product));
     }
 }
-

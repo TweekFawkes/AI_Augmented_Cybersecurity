@@ -6,7 +6,6 @@ import com.unicornemporium.dto.OrderResponse;
 import com.unicornemporium.model.Order;
 import com.unicornemporium.model.OrderItem;
 import com.unicornemporium.repository.OrderRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
     
     private final OrderRepository orderRepository;
+
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
     
     @Transactional
     public OrderResponse createOrder(OrderRequest orderRequest) {
@@ -53,4 +55,3 @@ public class OrderService {
         return orderRepository.findByCustomerEmail(email);
     }
 }
-

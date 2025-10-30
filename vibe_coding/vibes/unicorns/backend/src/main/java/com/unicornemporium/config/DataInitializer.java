@@ -2,7 +2,6 @@ package com.unicornemporium.config;
 
 import com.unicornemporium.model.Product;
 import com.unicornemporium.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
     
     private final ProductRepository productRepository;
+
+    public DataInitializer(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
     
     @Override
     public void run(String... args) {
@@ -78,4 +80,3 @@ public class DataInitializer implements CommandLineRunner {
         return product;
     }
 }
-

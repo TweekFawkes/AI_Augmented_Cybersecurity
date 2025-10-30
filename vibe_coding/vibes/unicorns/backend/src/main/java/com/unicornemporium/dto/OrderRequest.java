@@ -5,15 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderRequest {
     
     @NotBlank(message = "Customer name is required")
@@ -35,5 +29,64 @@ public class OrderRequest {
     @NotEmpty(message = "Order must contain at least one item")
     @Valid
     private List<OrderItemRequest> items;
-}
 
+    public OrderRequest() {
+    }
+
+    public OrderRequest(String customerName, String customerEmail, String deliveryAddress, String deliveryMethod, Double totalAmount, List<OrderItemRequest> items) {
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryMethod = deliveryMethod;
+        this.totalAmount = totalAmount;
+        this.items = items;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getDeliveryMethod() {
+        return deliveryMethod;
+    }
+
+    public void setDeliveryMethod(String deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public List<OrderItemRequest> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItemRequest> items) {
+        this.items = items;
+    }
+}
