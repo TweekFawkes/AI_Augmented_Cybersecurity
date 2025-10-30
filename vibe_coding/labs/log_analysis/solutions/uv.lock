@@ -199,7 +199,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "matplotlib", specifier = ">=3.10.7" }]
+requires-dist = [{ name = "matplotlib", specifier = ">=3.10.0" }]
 
 [[package]]
 name = "matplotlib"
