@@ -8,4 +8,4 @@ Steps:
 4. Plot the results and display the chart.
 5. Return a summary table.
 
-NOTE: leverage the "visualize_failed_logins.py" script when needed
+NOTE: leverage the "analyze_failed_logins.py" script when needed
