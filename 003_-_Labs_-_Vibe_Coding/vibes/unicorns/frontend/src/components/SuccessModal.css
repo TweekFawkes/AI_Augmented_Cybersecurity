@@ -1,0 +1,47 @@
+.success-content {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  animation: bounce 1s ease infinite;
+}
+
+.success-content h2 {
+  font-size: 2rem;
+  color: var(--success);
+  margin-bottom: 1rem;
+}
+
+.success-content p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.order-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f0e6ff;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .success-content {
+    padding: 2rem 1rem;
+  }
+
+  .success-icon {
+    font-size: 4rem;
+  }
+
+  .success-content h2 {
+    font-size: 1.5rem;
+  }
+}
+
